@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title><%= htmlWebpackPlugin.options.title %></title>
+	<script type="text/javascript">
+
+	<%=
+	 compilation.assets[htmlWebpackPlugin.files.chunks.main.entry.substr(htmlWebpackPlugin.files.publicPath.length)].source() %>
+	</script>
+</head>
+<body>
+	 <!-- 我是一行注释 -->
+
+	<% for (var key in htmlWebpackPlugin.files.chunks) { %>
+		<% if (key !== 'main') { %>
+			<script type="type/javascript" src="<%= htmlWebpackPlugin.files.chunks[key].entry %>"></script>
+		<% } %>
+
+	<% } %>
+</body>
+</html>
