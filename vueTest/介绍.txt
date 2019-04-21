@@ -1,0 +1,2 @@
+这是在做完第一个vue-cli完成的todo应用之后跟着一个视频自己搭建webpack等做出来的比较好看一点的todolist应用
+后来又往里面写了vuex代码
