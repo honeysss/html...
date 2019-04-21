@@ -1,7 +1,0 @@
-function windowToCanvas(x, y) {
-    var dom = canvas.getBoundingClientRect();
-    return {
-        x: x - dom.left,
-        y: y - dom.top
-    }
-}
