@@ -1,0 +1,5 @@
+Date date = new java.util.Date();
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+String formatdate = sdf.format(date);
+
+update meeting set cancleTime = to_date(?,'yyyy-mm-dd hh24:mi:ss')£»
