@@ -1,0 +1,163 @@
+
+
+--员工序列
+CREATE SEQUENCE empIdSeq
+START WITH 1
+INCREMENT BY 1
+MAXVALUE 9999
+NOCYCLE
+NOCACHE;
+
+
+--员工表
+CREATE TABLE employee(
+  empId NUMBER(10) CONSTRAINT emp_nn NOT NULL,
+  empName VARCHAR2(10),
+  empTel char(11),
+  empEmail VARCHAR2(20),
+  empDeptId NUMBER(5),
+  username VARCHAR2(10),
+  userPwd VARCHAR2(10),
+  userStatus NUMBER(5) default 0,
+  userRole NUMBER(5) default 0
+);
+
+
+--1管理员 0普通用户
+--0正在审核 1审核通过 2审核失败
+--员工表增加数据
+INSERT INTO employee VALUES (empIdSeq.NEXTVAL, '小明', '17613839697', '907641898@qq.com', 39, 'h', 'h', 1, 1);
+INSERT INTO employee VALUES (empIdSeq.NEXTVAL, '小黄', '13599838929', '928372823@qq.com', 40, 'honey', 'honey', 1, 1);
+INSERT INTO employee VALUES (empIdSeq.NEXTVAL, '小刘', '18927382738', '1102958935@qq.com', 41, 'user', 'user',1, 0);
+INSERT INTO employee VALUES (empIdSeq.NEXTVAL, '张三', '19028374829', '384738291@qq.com', 42, 'admin', 'admin', 0, 1);
+INSERT INTO employee VALUES (empIdSeq.NEXTVAL, '李四', '17827364729', '928372618@qq.com', 43, 'bigBoss', 'bigBoss', 0, 0);
+INSERT INTO employee VALUES (empIdSeq.NEXTVAL, '小梦', '18773882938', '837362728@qq.com', 44, 'zhang', 'zhang', 2, 1);
+INSERT INTO employee VALUES (empIdSeq.NEXTVAL, '刘一', '18384738299', '3273483829@qq.com', 39, 'li', 'li', 2, 0);
+INSERT INTO employee VALUES (empIdSeq.NEXTVAL, '小六', '19837463829', '232323234@qq.com', 40, 'du', 'du', 1, 1);
+INSERT INTO employee VALUES (empIdSeq.NEXTVAL, '王五', '19827362737', '324352332@qq.com', 41, 'wen', 'wen', 2, 0);
+
+
+INSERT INTO employee VALUES (empIdSeq.NEXTVAL, '汪洋', '17613839697', '907641898@qq.com', 42, 'h2', 'h2', 1, 1);
+INSERT INTO employee VALUES (empIdSeq.NEXTVAL, '刘萌萌', '13599838929', '928372823@qq.com', 43, 'honey2', 'honey2', 1, 1);
+INSERT INTO employee VALUES (empIdSeq.NEXTVAL, '张扬', '18927382738', '1102958935@qq.com', 44, 'user2', 'user2',1, 0);
+INSERT INTO employee VALUES (empIdSeq.NEXTVAL, '郝五一', '19028374829', '384738291@qq.com', 39, 'admin2', 'admin2', 0, 1);
+INSERT INTO employee VALUES (empIdSeq.NEXTVAL, '观潮', '17827364729', '928372618@qq.com', 40, 'bigBoss2', 'bigBoss2', 0, 0);
+INSERT INTO employee VALUES (empIdSeq.NEXTVAL, '乔伊', '18773882938', '837362728@qq.com', 41, 'zhang2', 'zhang2', 2, 1);
+INSERT INTO employee VALUES (empIdSeq.NEXTVAL, '匆匆', '18384738299', '3273483829@qq.com', 42, 'li2', 'li2', 2, 0);
+INSERT INTO employee VALUES (empIdSeq.NEXTVAL, '陈寻', '19837463829', '232323234@qq.com', 43, 'du2', 'du2', 1, 1);
+INSERT INTO employee VALUES (empIdSeq.NEXTVAL, '方茴', '19827362737', '324352332@qq.com', 44, 'wen2', 'wen2', 2, 0);
+
+
+INSERT INTO employee VALUES (empIdSeq.NEXTVAL, '陈寻寻', '19837463829', '232323234@qq.com', 43, '0', '0', 0, 0);
+INSERT INTO employee VALUES (empIdSeq.NEXTVAL, '方茴茴', '19827362737', '324352332@qq.com', 44, '2', '2', 2, 1);
+commit;
+SELECT * FROM employee;
+
+
+--部门序列
+CREATE SEQUENCE deptIdSeq
+START WITH 1
+INCREMENT BY 1
+MAXVALUE 9999
+NOCYCLE
+NOCACHE;
+
+
+--部门表
+create table department(
+  deptId NUMBER(5) CONSTRAINT dept_nn NOT NULL,
+  deptName VARCHAR2(20),
+  CONSTRAINT dept_pk PRIMARY KEY(deptId)
+);
+
+
+
+--部门表增加数据
+insert into department values(deptIdSeq.NEXTVAL, '新闻部');
+insert into department values(deptIdSeq.NEXTVAL, '质检部');
+insert into department values(deptIdSeq.NEXTVAL, '宣传部');
+insert into department values(deptIdSeq.NEXTVAL, '安全部');
+insert into department values(deptIdSeq.NEXTVAL, '就业部');
+insert into department values(deptIdSeq.NEXTVAL, '心理部');
+commit;
+
+
+
+
+
+--会议序列
+CREATE SEQUENCE mIdSeq
+START WITH 1
+INCREMENT BY 1
+MAXVALUE 9999
+NOCYCLE
+NOCACHE;
+
+
+--会议表
+create table meeting(
+  mId NUMBER(5) CONSTRAINT m_nn NOT NULL,
+  mName VARCHAR2(20),
+  mNum NUMBER(5),
+  mrId NUMBER(5),
+  reEmpId NUMBER(5),
+  reTime DATE,
+  startTime DATE,
+  endTime DATE,
+  cancleTime DATE,
+  mDescribe VARCHAR2(100),
+  cancleReason VARCHAR2(40),
+  mStatus NUMBER(5) default 0
+);
+
+
+-- 0未取消 1取消
+--会议表增加数据
+
+--会议室序列
+CREATE SEQUENCE mrIdSeq
+START WITH 1
+INCREMENT BY 1
+MAXVALUE 9999
+NOCYCLE
+NOCACHE;
+
+--会议室表
+create table meetingRoom(
+  mrId NUMBER(5) CONSTRAINT mr_nn NOT NULL,
+  mrNum NUMBER(5),
+  mrName VARCHAR2(30),
+  mrCapacity NUMBER(5),
+  mrStatus NUMBER(5) default 0,
+  mrRemark VARCHAR2(100)
+);
+
+
+
+
+--0未被占用 1被占用
+
+--会议室表增加记录
+INSERT INTO meetingRoom VALUES (mrIdSeq.nextval, 101, '多媒体会议室', 20, 0, '没有说明');
+INSERT INTO meetingRoom VALUES (mrIdSeq.nextval, 201, '第一会议室', 30, 1, '没有说明');
+INSERT INTO meetingRoom VALUES (mrIdSeq.nextval, 207, '第二会议室', 40, 0, '没有说明');
+INSERT INTO meetingRoom VALUES (mrIdSeq.nextval, 401, '第三会议室', 50, 0, '没有说明');
+INSERT INTO meetingRoom VALUES (mrIdSeq.nextval, 211, '第四会议室', 30, 1, '没有说明');
+INSERT INTO meetingRoom VALUES (mrIdSeq.nextval, 307, '第五会议室', 20, 0, '没有说明');
+commit;
+
+
+
+--会议和员工表
+CREATE TABLE meetingAndEmployee(
+  mId NUMBER(5) CONSTRAINT me_nn1 NOT NULL ,
+  eId NUMBER(5) CONSTRAINT me_nn2 NOT NULL
+);
+
+TRUNCATE TABLE MEETING;
+
+--访问人次表
+CREATE TABLE counter(
+empId NUMBER(10),
+counter NUMBER(10)
+);

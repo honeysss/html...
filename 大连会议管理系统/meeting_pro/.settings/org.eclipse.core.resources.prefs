@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+encoding//WebContent/include/head.jsp=UTF-8
+encoding//WebContent/include/page-footer.jsp=UTF-8
+encoding//WebContent/updateMeetingSuccess.jsp=UTF-8
+encoding//src/com/icss/dao/EmployeeDao.java=UTF-8
+encoding//src/com/icss/filter/LoginFilter.java=UTF-8
