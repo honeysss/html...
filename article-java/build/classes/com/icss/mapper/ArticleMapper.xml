@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 绑定接口-->
+<mapper namespace="com.icss.dao.ArticleMapper">
+	<!-- resultMap结果集 -->
+	<resultMap id="resultMap" type="article">
+		<id column="id" property="id" jdbcType="INTEGER"></id>
+		<result column="pubDate" property="pubDate" jdbcType="DATE"></result>
+		<result column="title" property="title" jdbcType="VARCHAR"></result>
+		<result column="author" property="author" jdbcType="VARCHAR"></result>
+		<result column="content" property="content" jdbcType="VARCHAR"></result>
+	</resultMap>
+	
+	<sql id="base_list">
+		id, pubDate, title, author, content
+	</sql>
+	
+	<!-- 通过文章名称查询是否已经存在该文章 -->
+	<select id="selectArticleByName" resultMap="resultMap" parameterType="java.lang.String">
+		select 
+		<include refid="base_list"></include>
+		from article WHERE title = #{title, jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 增加文章 -->
+	<insert id="insertArticle" parameterType="article">
+		insert into article values(article_seq.nextval, SYSDATE,
+		#{title, jdbcType=VARCHAR}, #{author, jdbcType=VARCHAR},
+		#{content, jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- 查看某个文章信息 -->
+	<select id="selectArticleById" resultMap="resultMap" parameterType="java.lang.Integer">
+		select * from article WHERE id = #{id, jdbcType=INTEGER}
+	</select>
+	
+	<!-- 修改文章 -->
+	<update id="updateArticleById" parameterType="java.lang.Integer">
+		update article set title=#{title, jdbcType=VARCHAR}, 
+		author=#{author, jdbcType=VARCHAR}, content=#{content, jdbcType=VARCHAR}
+		 where id=#{id, jdbcType=INTEGER}
+	</update>
+	
+	<!-- 删除文章 -->
+	<delete id="deleteArticleById" parameterType="java.lang.Integer">
+		delete from article where id=#{id, jdbcType=INTEGER}
+	</delete>
+	
+	<!-- 通过显示条数和符合的文章标题查询文章 -->
+	<select id="selectArticles" resultMap="resultMap">
+		select * FROM (SELECT a.*, ROWNUM rn FROM article a WHERE ID != 0
+		
+		<choose>
+			<when test="#{0} != ''">
+				and title like '%' || #{0} || '%')
+			</when>
+			<when test="#{0} == ''">
+				)
+			</when>
+		</choose>
+		 WHERE rn BETWEEN ((#{1}-1) * #{2} + 1)
+		AND (#{1} * #{2}) ORDER BY pubDate DESC
+	</select>
+	
+	<!-- 通过文章名称模糊查询一共有多少条数据 -->
+	<select id="selectAllNums" resultType="java.lang.Integer" parameterType="java.lang.String">
+		select count(*) from article
+		<if test="#{_parameter} != ''">
+			where title like '%' || #{_parameter} || '%'
+		</if>
+	</select>
+	
+	<!-- 查询所有文章 -->
+	<select id="selectAllArticles" resultMap="resultMap">
+		select * from article
+	</select>
+	
+</mapper>

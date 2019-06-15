@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- 绑定接口-->
+<mapper namespace="com.icss.dao.UserMapper">
+	<!-- resultMap结果集 -->
+	<resultMap id="resultMap" type="user">
+		<id column="userId" property="userId" jdbcType="INTEGER"></id>
+		<result column="username" property="username" jdbcType="VARCHAR"></result>
+		<result column="password" property="password" jdbcType="VARCHAR"></result>
+	</resultMap>
+	
+	<sql id="base_list">
+		userId, username, password
+	</sql>
+	
+	<!-- 判断用户名是否已经存在 -->
+	<select id="ifExistUsername" resultMap="resultMap" parameterType="java.lang.String">
+		select
+		<include refid="base_list"></include>
+		from userinfo WHERE username = #{username, jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 判断是否存在该用户 -->
+	<select id="selectOneUser" resultMap="resultMap" parameterType="user">
+		select
+		<include refid="base_list"></include>
+		from userinfo WHERE username = #{username, jdbcType=VARCHAR}
+		and password = #{password, jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 增加用户（注册成功） -->
+	<insert id="insertUser" parameterType="user">
+		insert into userinfo values(userinfo_sql.NEXTVAL, #{username, jdbcType=VARCHAR}, #{password, jdbcType=VARCHAR})
+	</insert>
+	
+</mapper>

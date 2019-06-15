@@ -40,13 +40,11 @@
 .middle-left-content{
 	float: left;
 	width: 1101px;
-	padding:180px 80px 0 80px;
-	border-right: 2px solid #DDDDDD;
+	padding:0 80px 0 80px;
 
 }
 .article-list{
-	height:180px;
-	margin-bottom: 100px;
+	outline: 2px solid #DDDDDD;
 }
 .article-author{
 	margin-bottom: 10px;
@@ -76,10 +74,16 @@
 	color: skyblue;
 	position: absolute;
 	top: 0;
-	left:840px;
+	left:800px;
 
 }
 .delete{
+	color: skyblue;
+	position: absolute;
+	top: 0;
+	left:840px;
+}
+.download {
 	color: skyblue;
 	position: absolute;
 	top: 0;
@@ -127,18 +131,17 @@
 
 /*展示页面*/
 .article-show-title{
+	padding-top: 10px;
 	text-align: center;
 }
 .show-middle-content{
 	width:1200px;
 	margin: 0 auto;
 	padding-top: 30px;
-	outline: 2px solid #DDDDDD;
 
 }
-.article-show-author{
+.article-show-author, .article-show-date{
 	text-align: center;
-	padding-top: 20px;
 	font-style: italic;
 }
 .article-show-content{
@@ -164,8 +167,14 @@
 	margin-top: 60px;
 	margin-bottom: 80px;
 }
-.change-over{
+.change-over1{
 	margin-left:143px;
+	height:40px;
+	width:70px;
+	margin-top: 30px;
+}
+.change-over2{
+	margin-left:20px;
 	height:40px;
 	width:70px;
 	margin-top: 30px;
@@ -177,4 +186,19 @@
 }
 .foot{
 	height:30px;
+}
+
+
+#changePage {
+	font-size: 14px;
+	margin: 110px 0 89px 79px
+}
+#toPage {
+	width: 25px;
+	height: 20px;
+	margin: 4px;
+	text-align: center;
+}
+#container {
+	height: 180px;
 }
